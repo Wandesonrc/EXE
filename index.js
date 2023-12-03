@@ -1,11 +1,13 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
+
+const port = 3000;
 
 // rota principal da aplicação 
-app.get('/hello', function(req, res) {
+app.get('/hello', (req, res) => {
   res.send('hello world');
 });
 
-app.listen(3000, function(){
-    console.log('Aplicação rodando em http://localhost:3000')
-})
+app.listen(port, function(){
+    console.log(`Aplicação rodando em http://localhost:${port}`);
+});
