@@ -1,0 +1,73 @@
+{
+	"info": {
+		"_postman_id": "840ebb56-2366-41a0-ad36-bf88dee9e0d5",
+		"name": "Desafio_aba",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "24381841"
+	},
+	"item": [
+		{
+			"name": "Listar Todos os Alunos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/alunos"
+			},
+			"response": []
+		},
+		{
+			"name": "Criar novo Aluno",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"aluno\":\"Teste de cadastro de Aluno 3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/aluno"
+			},
+			"response": []
+		},
+		{
+			"name": "Remover um aluno",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:3000/aluno/3"
+			},
+			"response": []
+		},
+		{
+			"name": "Atualizar um Aluno",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"aluno\": \"Aluno 3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/aluno/3"
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Aluno por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/aluno/2"
+			},
+			"response": []
+		}
+	]
+}
