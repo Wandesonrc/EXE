@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 
 // rota principal da aplicação 
-app.get('/', function(req, res) {
+app.get('/hello', function(req, res) {
   res.send('hello world');
 });
 
