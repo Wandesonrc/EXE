@@ -22,7 +22,23 @@ Lista de Endpoints da aplicação CRUD de Alunos
 - [DELETE] /aluno/{id} - Remove um aluno pelo ID
 */
 
-const alunos = ["Aluno 1", "Aluno 2"];
+const alunos = [
+  { 
+      "id": 1,
+      "nome":"Alice M",
+      "dataNascimento": "01/01/2010",
+      "turma":"A",
+      "turno":"Tarde"
+   },
+   {
+      "id": 2,
+      "nome":"Bruno Silva",
+      "dataNascimento": "07/10/2010",
+      "turma":"A",
+      "turno":"Tarde"
+
+   }
+  ];
 
 //[GET] /alunos
 app.get('/alunos', (req, res)=>{
@@ -36,17 +52,30 @@ app.get('/aluno/:id', (req, res)=>{
 
     const aluno = alunos[id];
 
+    if (!aluno) {
+      res.send('Aluno não encontrado.');
+      
+      return;
+    }
+
     res.send(aluno);
 
 });
 
 //[POST] /aluno
 app.post('/aluno', (req,res)=>{
-    const aluno = req.body.aluno;
+    const aluno = req.body;
 
+    if (!aluno || !aluno.nome) {
+      res.send('Aluno iválido')
+      
+      return;
+    }
+
+    aluno.id = alunos.length +1;
     alunos.push(aluno);
 
-    res.send(`Aluno criado com sucesso: '${aluno}'.`);
+    res.send(aluno);
 });
 
 //[PUT] /aluno/{id}
