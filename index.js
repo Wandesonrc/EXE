@@ -1,12 +1,13 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const alunos = require('./src/data/alunos.json');
+const fs = require("fs/promises")
 
 const app = express();
 
 const port = 3000;
 
-//analisar o Json
-app.use(bodyParser.json());
+
+app.use(express.json());
 
 // rota principal da aplicação 
 app.get('/hello', (req, res) => {
@@ -22,35 +23,23 @@ Lista de Endpoints da aplicação CRUD de Alunos
 - [DELETE] /aluno/{id} - Remove um aluno pelo ID
 */
 
-const alunos = [
-  { 
-      "id": 1,
-      "nome":"Alice M",
-      "dataNascimento": "01/01/2010",
-      "turma":"A",
-      "turno":"Tarde"
-   },
-   {
-      "id": 2,
-      "nome":"Bruno Silva",
-      "dataNascimento": "07/10/2010",
-      "turma":"A",
-      "turno":"Tarde"
+const getAlunosValidos = () => alunos.filter(Boolean);
 
-   }
-  ];
+const getAlunoById = id => getAlunosValidos().find(alu => alu.id === id);
+
+
 
 //[GET] /alunos
 app.get('/alunos', (req, res)=>{
-    res.send(alunos.filter(Boolean));
+    res.send(getAlunosValidos());
 
 });
 
 //[GET] /aluno/{id}
 app.get('/aluno/:id', (req, res)=>{
-    const id = req.params.id -1;
+    const id = +req.params.id;
 
-    const aluno = alunos[id];
+    const aluno = getAlunoById(id);
 
     if (!aluno) {
       res.send('Aluno não encontrado.');
@@ -75,14 +64,16 @@ app.post('/aluno', (req,res)=>{
     aluno.id = alunos.length +1;
     alunos.push(aluno);
 
-    res.send(aluno);
-});
+    fs.writeFile('./src/data/alunos.json', JSON.stringify(alunos, null, 4));
 
+    res.sendStatus(201);
+});
+  
 //[PUT] /aluno/{id}
 app.put('/aluno/:id', (req, res)=>{
-    const id = req.params.id -1;
+    const id = +req.params.id;
 
-    const aluno = req.body.aluno;
+    const aluno = getAlunoById(id);
 
     alunos[id] = aluno;
 
@@ -91,15 +82,26 @@ app.put('/aluno/:id', (req, res)=>{
 
 //[DELETE] /aluno/{id}
 app.delete('/aluno/:id', (req, res)=>{
-  const id = req.params.id -1;
+  const id = +req.params.id;
 
-  delete alunos[id];
+  const aluno = getAlunoById(id);
+
+  if (!aluno) {
+    res.send('Aluno não encontrado. ');
+    
+    return;
+  }
+
+  const index = aluno.indexOf(aluno);
+
+  delete alunos[index];
 
   res.send('Aluno removido com sucesso.')
 
 });
 
 
-app.listen(port, function(){
+app.listen(port, () =>{
     console.log(`Aplicação rodando em http://localhost:${port}`);
 });
+

@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "nome": "Alice M",
+        "dataNascimento": "01/01/2010",
+        "turma": "A",
+        "turno": "Tarde"
+    },
+    {
+        "id": 2,
+        "nome": "Bruno Silva",
+        "dataNascimento": "07/10/2010",
+        "turma": "A",
+        "turno": "Tarde"
+    },
+    {
+        "nome": "Wanessa Rodrigues",
+        "dataNascimento": "07/02/2010",
+        "turma": "A",
+        "turno": "Manhã",
+        "id": 3
+    }
+]
