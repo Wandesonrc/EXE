@@ -111,9 +111,11 @@ app.post('/aluno', (req,res)=>{
 app.put('/aluno/:id', (req, res)=>{
     const id = +req.params.id;
 
-    const aluno = getAlunoById(id);
+    const aluno = getAlunoById(id);    
 
     alunos[id] = aluno;
+
+    
 
     res.send(`Aluno atualizado com sucesso: '${aluno}'.`)
 });
@@ -123,17 +125,16 @@ app.delete('/aluno/:id', (req, res)=>{
   const id = +req.params.id;
 
   const aluno = getAlunoById(id);
+  const index = alunos.indexOf(aluno);
+  
 
   if (!aluno) {
     res.send('Aluno não encontrado. ');
     
     return;
   }
-
-  const index = alunos.indexOf(aluno);
-  //const index = alunos.findIndex(aluno => aluno.idAluno === Number(id));
-
-   alunos.splice(index, 1);
+ 
+  alunos.splice(index, 1);
 
   fs.writeFile("./src/data/alunos.json", JSON.stringify(alunos, null, 4));
 
